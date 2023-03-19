@@ -13,17 +13,13 @@ import java.util.TimerTask;
 
 public abstract class Handler {
 
-    private final String token;
 
     private static JDA jda;
-
-    public Handler(String token) {
-        this.token = token;
-    }
 
 
 
     public static Handler handler;
+
 
     public abstract void onEnable();
     public abstract void onDisable();
@@ -35,8 +31,8 @@ public abstract class Handler {
         }));
     }
 
-    public void init() {
-        jda = JDABuilder.createDefault(this.token).build();
+    public void init(String token) {
+        jda = JDABuilder.createDefault(token).build();
     }
 
     public void setStatus(Map<Integer, Map.Entry<String, Map.Entry<OnlineStatus, Activity>>> status, long time) {

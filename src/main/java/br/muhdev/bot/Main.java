@@ -5,13 +5,11 @@ import br.muhdev.handlers.bothandler.Handler;
 public class Main extends Handler {
     static {handler = new Main();}
 
-    public Main() {
-        super(getInstance().getConfig().getString("discord.token"));
-    }
 
     @Override
     public void onEnable() {
-        init();
+        saveDefaultConfig();
+        init(getConfig().getString("discord.token"));
         System.out.println("Iniciando...");
     }
 
