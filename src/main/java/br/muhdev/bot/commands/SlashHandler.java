@@ -2,6 +2,8 @@ package br.muhdev.bot.commands;
 
 import br.muhdev.handlers.bothandler.Handler;
 import br.muhdev.handlers.utils.ConfigManager;
+import br.muhdev.handlers.utils.clusters.ClustersAPI;
+import br.muhdev.handlers.utils.clusters.GuildCApi;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -9,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class SlashHandler extends ListenerAdapter {
 
@@ -18,13 +21,15 @@ public abstract class SlashHandler extends ListenerAdapter {
     public static List<SlashHandler> cmd = new ArrayList<>();
 
     public SlashHandler(String name, String desc) {
-        ConfigManager.writeCommand(name , desc);
         this.defaultname = name;
+        ConfigManager.writeCommand(name , desc);
         this.name = getCommand().getString("command");
         String desc1 = getCommand().getString("description");
         if(getCommand().getBoolean("enabled")) {
             Handler.getInstance().getJda().addEventListener(this);
-            Handler.getInstance().getJda().upsertCommand(commandData(this.name, desc1)).queue();
+            if(ClustersAPI.getLocalCluster().getId() == 1) {
+                Handler.getInstance().getJda().upsertCommand(commandData(this.name, desc1)).queue();
+            }
             Handler.getInstance().getJda().updateCommands().queue();
             cmd.add(this);
         }
@@ -46,7 +51,8 @@ public abstract class SlashHandler extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent evt) {
-        if(evt.getName().equalsIgnoreCase(name)) this.execute(evt);
+        if(evt.getName().equalsIgnoreCase(name) && new GuildCApi(Objects.requireNonNull(evt.getGuild()).getId())
+                .isTheCluster()) this.execute(evt);
     }
 
 

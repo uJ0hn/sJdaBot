@@ -72,6 +72,23 @@ public final class ConfigManager {
                 .replace(" ", "").split(","));
     }
 
+    public int getInt(String path){
+        if(path.contains(".")) {
+            String[] paa = path.split("\\.");
+            Object result1 = getLinkedHashMap(paa[0]).get(paa[1]);
+
+            if(paa.length == 3) {
+                Object result2 = ((LinkedHashMap<?, ?>) result1).get(paa[2]);
+                return (Integer) result2;
+            } else if (paa.length == 4) {
+                LinkedHashMap<?, ?> result3 = (LinkedHashMap<?, ?>) ((LinkedHashMap<?, ?>) result1).get(paa[2]);
+                return (Integer) result3.get(paa[3]);
+            }
+            return (Integer) result1;
+        }
+        return (Integer) config.get(path);
+    }
+
 
     public String getString(String path){
         if(path.contains(".")) {

@@ -1,7 +1,10 @@
 package br.muhdev.bot;
 
+import br.muhdev.backend.Backend;
 import br.muhdev.bot.commands.SlashHandler;
+import br.muhdev.bot.listeners.MessageReceivedLis;
 import br.muhdev.handlers.bothandler.Handler;
+import br.muhdev.handlers.utils.clusters.ClustersAPI;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 
@@ -15,10 +18,13 @@ public class Main extends Handler {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        Backend.makeBackend();
+        ClustersAPI.getLocalCluster().insertCluster();
         init(getConfig().getString("discord.token"));
         System.out.println("Iniciando...");
         sets();
         SlashHandler.setUpCommands();
+        getJda().addEventListener(new MessageReceivedLis());
     }
 
 
@@ -37,7 +43,9 @@ public class Main extends Handler {
 
     @Override
     public void onDisable() {
+        new ClustersAPI(1).deleteCluster();
         getJda().shutdown();
+        Backend.getInstance().closeConnection();
         System.out.println("Desligando...");
     }
 

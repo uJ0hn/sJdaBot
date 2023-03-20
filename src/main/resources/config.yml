@@ -1,3 +1,28 @@
+#      ___      _        _
+#     /   \__ _| |_ __ _| |__   __ _ ___  ___
+#    / /\ / _` | __/ _` | '_ \ / _` / __|/ _ \
+#   / /_// (_| | || (_| | |_) | (_| \__ \  __/
+#  /___,' \__,_|\__\__,_|_.__/ \__,_|___/\___|
+
+# Configurações do banco de dados.
+database:
+  # Define o tipo de banco de dados usado.
+  #
+  # - Opções disponíveis:
+  #  |=> PostgreSQL
+  type: PostgreSQL
+
+  remote:
+    # Define as informações do PostgreSQL.
+    address: 'localhost'
+    port: '5432'
+    database: 'sBot'
+    user: 'root'
+    password: ''
+
+cluster: 1
+
+
 discord:
   token: ''
 
