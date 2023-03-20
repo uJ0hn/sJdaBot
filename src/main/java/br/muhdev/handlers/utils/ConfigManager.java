@@ -1,5 +1,6 @@
 package br.muhdev.handlers.utils;
 
+import br.muhdev.bot.Main;
 import br.muhdev.handlers.bothandler.Handler;
 import lombok.SneakyThrows;
 import org.yaml.snakeyaml.Yaml;
@@ -25,19 +26,41 @@ public final class ConfigManager {
         config = yaml.load(inputStream);
     }
 
+    @SneakyThrows
+    public static void writeCommand(String defaultname, String defaultdesc) {
+            File file = new File("commands", defaultname + ".yml");
+            String test = "commands/" + defaultname + ".yml";
+            if (!file.exists()) {
+                File folder = new File("commands");
+                if(!folder.mkdir()) System.out.println("Erro ao criar pasta");
+                if(!file.createNewFile()) System.out.println("Erro ao criar arquivo");
 
-    public static void main(String[] args) throws Exception {
-        Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put("id", 19);
-        dataMap.put("name", "John");
-        dataMap.put("address", "Star City");
-        dataMap.put("department", "Medical");
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    @SneakyThrows
+                    public void run() {
+                        Map<String, Object> dataMap = new HashMap<>();
+                        dataMap.put("command", defaultname);
+                        dataMap.put("description", defaultdesc);
+                        dataMap.put("enabled", true);
+                        dataMap.put("type", "Geral");
 
-        PrintWriter writer = new PrintWriter("./src/main/resources/student_output.yml");
-        Yaml yaml = new Yaml();
+                        PrintWriter writer = new PrintWriter(test);
+                        Yaml yaml = new Yaml();
+                        yaml.dump(dataMap, writer);
+                    }
+                }, 2L);
 
 
-    }
+                System.out.println("A configuração " + test + " foi criada.");
+                System.exit(0);
+            }
+
+        }
+
+    
+
+
 
 
 

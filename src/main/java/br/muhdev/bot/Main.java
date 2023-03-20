@@ -1,5 +1,6 @@
 package br.muhdev.bot;
 
+import br.muhdev.bot.commands.SlashHandler;
 import br.muhdev.handlers.bothandler.Handler;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
@@ -17,6 +18,7 @@ public class Main extends Handler {
         init(getConfig().getString("discord.token"));
         System.out.println("Iniciando...");
         sets();
+        SlashHandler.setUpCommands();
     }
 
 
