@@ -5,7 +5,9 @@ import lombok.SneakyThrows;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.*;
 
@@ -22,6 +24,23 @@ public final class ConfigManager {
         Yaml yaml = new Yaml();
         config = yaml.load(inputStream);
     }
+
+
+    public static void main(String[] args) throws Exception {
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("id", 19);
+        dataMap.put("name", "John");
+        dataMap.put("address", "Star City");
+        dataMap.put("department", "Medical");
+
+        PrintWriter writer = new PrintWriter("./src/main/resources/student_output.yml");
+        Yaml yaml = new Yaml();
+
+
+    }
+
+
+
 
 
     public List<String> getKeys(String section) {
@@ -73,7 +92,7 @@ public final class ConfigManager {
 
 
 
-
+    @SuppressWarnings("unchecked")
     public List<String> getStringList(String path) {
         if(path.contains(".")) {
             String[] paa = path.split("\\.");
@@ -89,20 +108,6 @@ public final class ConfigManager {
             return (List<String>) result1;
         }
         return (List<String>) config.get(path);
-    }
-
-
-    @SneakyThrows
-    public static void saveCommand(String path) {
-        File file = new File("commands", path + ".yml");
-            String test = "commands/" + path + ".yml";
-
-        if (!file.exists()) {
-            File folder = new File("commands");
-            if(!folder.exists()) folder.mkdir();
-            FileUtils.copyFile(Objects.requireNonNull(Handler.getInstance().getClass().getClassLoader().getResourceAsStream(test)), file);
-            System.out.println("A configuração " + test + " foi criada.");
-        }
     }
 
     @SneakyThrows
@@ -122,13 +127,6 @@ public final class ConfigManager {
         }
     }
 
-
-
-
-    public static ConfigManager getConfig(String... path) {
-        String path1 = path.length == 0 ? "config.yml" : path[0];
-        return new ConfigManager(path1);
-    }
 
 
 }

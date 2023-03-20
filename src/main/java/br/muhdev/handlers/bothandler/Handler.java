@@ -7,10 +7,6 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
-
 public abstract class Handler {
 
 
@@ -25,9 +21,9 @@ public abstract class Handler {
     public abstract void onDisable();
 
     public static void main(String[] args) {
-
+        handler.onEnable();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-
+        handler.onDisable();
         }));
     }
 
@@ -35,16 +31,8 @@ public abstract class Handler {
         jda = JDABuilder.createDefault(token).build();
     }
 
-    public void setStatus(Map<Integer, Map.Entry<String, Map.Entry<OnlineStatus, Activity>>> status, long time) {
-        final int[] i = {1};
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                getJda().getPresence().setPresence(status.get(i[0]).getValue().getKey(), status.get(i[0]).getValue().getValue());
-                i[0]++;
-            }
-        }, 1L, time);
-
+    public void setStatus(OnlineStatus status,  Activity activity) {
+        getJda().getPresence().setPresence(status, activity);
     }
 
     public JDA getJda() {
