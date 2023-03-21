@@ -24,6 +24,7 @@ public class PostgreSQLBackend extends Backend{
 
     @SneakyThrows
     public PostgreSQLBackend() {
+        Class.forName("org.postgresql.Driver");
         this.host = Main.getInstance().getConfig().getString("database.remote.address");
         this.port = Main.getInstance().getConfig().getString("database.remote.port");
         this.database = Main.getInstance().getConfig().getString("database.remote.database");

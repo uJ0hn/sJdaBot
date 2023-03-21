@@ -1,24 +1,25 @@
 package br.muhdev.bot.commands;
 
+import br.muhdev.bot.Main;
+import br.muhdev.bot.commands.cluster.ClusterInfoCommand;
 import br.muhdev.handlers.bothandler.Handler;
 import br.muhdev.handlers.utils.ConfigManager;
 import br.muhdev.handlers.utils.clusters.ClustersAPI;
 import br.muhdev.handlers.utils.clusters.GuildCApi;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public abstract class SlashHandler extends ListenerAdapter {
 
     private final String defaultname;
     private final String name;
 
-    public static List<SlashHandler> cmd = new ArrayList<>();
+    public static Map<String, SlashHandler> cmd = new HashMap<>();
 
     public SlashHandler(String name, String desc) {
         this.defaultname = name;
@@ -28,10 +29,11 @@ public abstract class SlashHandler extends ListenerAdapter {
         if(getCommand().getBoolean("enabled")) {
             Handler.getInstance().getJda().addEventListener(this);
             if(ClustersAPI.getLocalCluster().getId() == 1) {
-                Handler.getInstance().getJda().upsertCommand(commandData(this.name, desc1)).queue();
+                for(Guild guild : Main.getInstance().getJda().getGuilds()) {
+                    guild.updateCommands().addCommands(commandData(this.name, desc1)).queue();
+                }
             }
-            Handler.getInstance().getJda().updateCommands().queue();
-            cmd.add(this);
+            cmd.put(name, this);
         }
 
     }
@@ -43,6 +45,7 @@ public abstract class SlashHandler extends ListenerAdapter {
 
     public static void setUpCommands() {
         new PingCommand();
+        new ClusterInfoCommand();
     }
 
     public abstract void execute(SlashCommandInteractionEvent evt);

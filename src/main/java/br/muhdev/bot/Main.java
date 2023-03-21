@@ -2,12 +2,16 @@ package br.muhdev.bot;
 
 import br.muhdev.backend.Backend;
 import br.muhdev.bot.commands.SlashHandler;
-import br.muhdev.bot.listeners.MessageReceivedLis;
+import br.muhdev.bot.listeners.ServerJoinListener;
 import br.muhdev.handlers.bothandler.Handler;
+import br.muhdev.handlers.utils.ConfigManager;
 import br.muhdev.handlers.utils.clusters.ClustersAPI;
+import lombok.SneakyThrows;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 
+import java.net.InetAddress;
+import java.util.GregorianCalendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -17,15 +21,21 @@ public class Main extends Handler {
 
     @Override
     public void onEnable() {
-        saveDefaultConfig();
+        ConfigManager.saveDefaultConfig("config.yml");
         Backend.makeBackend();
         ClustersAPI.getLocalCluster().insertCluster();
+        System.out.println(Main.getInstance().getConfig().getInt("cluster"));
         init(getConfig().getString("discord.token"));
         System.out.println("Iniciando...");
-        sets();
+        if(ClustersAPI.getLocalCluster().getId() == 1) {
+            sets();
+        }
         SlashHandler.setUpCommands();
-        getJda().addEventListener(new MessageReceivedLis());
+        getJda().addEventListener(new ServerJoinListener());
+        getJda().updateCommands().queue();
     }
+
+
 
 
     public void sets() {
@@ -35,7 +45,11 @@ public class Main extends Handler {
                 String aaaa1 = Main.getInstance().getConfig().getStringList("status").get((int)
                         (Math.random() * Main.getInstance().getConfig().getStringList("status").size()));
                 String[] args = aaaa1.split(" ; ");
-                setStatus(OnlineStatus.valueOf(args[1]), get(Activity.ActivityType.valueOf(args[2]), args[0]));
+                String finale = args[0];
+                for(ClustersAPI api : ClustersAPI.getAllClusters()) {
+                    finale = finale.replace("{cluster_" + api.getId() + "}", "" + api.getPing());
+                }
+                setStatus(OnlineStatus.valueOf(args[1]), get(Activity.ActivityType.valueOf(args[2]), finale));
             }
         }, 0, 6000L);
     }
