@@ -21,10 +21,12 @@ database:
     password: ''
 
 cluster: 1
-
+clusterport: 3122
 
 discord:
   token: ''
 
 status:
   - 'Bot feito em JDA pelo murillinho ; DO_NOT_DISTURB ; PLAYING'
+  - 'Cluster 1 {cluster_1} m/s ; DO_NOT_DISTURB ; PLAYING'
+  - 'Cluster 2 {cluster_2} m/s ; DO_NOT_DISTURB ; PLAYING'

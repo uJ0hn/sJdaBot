@@ -10,7 +10,12 @@ import lombok.SneakyThrows;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -19,23 +24,22 @@ public class Main extends Handler {
     static {handler = new Main();}
 
 
+    @SneakyThrows
     @Override
     public void onEnable() {
         ConfigManager.saveDefaultConfig("config.yml");
         Backend.makeBackend();
         ClustersAPI.getLocalCluster().insertCluster();
-        System.out.println(Main.getInstance().getConfig().getInt("cluster"));
         init(getConfig().getString("discord.token"));
         System.out.println("Iniciando...");
-        if(ClustersAPI.getLocalCluster().getId() == 1) {
-            sets();
-        }
         SlashHandler.setUpCommands();
         getJda().addEventListener(new ServerJoinListener());
         getJda().updateCommands().queue();
+        if(ClustersAPI.getLocalCluster().getId() == 1) {
+            sets();
+        }
+        new Thread(() -> ClustersAPI.getLocalCluster().start()).start();
     }
-
-
 
 
     public void sets() {

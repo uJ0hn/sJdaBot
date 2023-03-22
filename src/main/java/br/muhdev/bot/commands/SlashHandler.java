@@ -1,39 +1,36 @@
 package br.muhdev.bot.commands;
 
 import br.muhdev.bot.Main;
-import br.muhdev.bot.commands.cluster.ClusterInfoCommand;
+import br.muhdev.bot.commands.cluster.ClusterCommand;
 import br.muhdev.handlers.bothandler.Handler;
 import br.muhdev.handlers.utils.ConfigManager;
 import br.muhdev.handlers.utils.clusters.ClustersAPI;
-import br.muhdev.handlers.utils.clusters.GuildCApi;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class SlashHandler extends ListenerAdapter {
 
     private final String defaultname;
     private final String name;
+    private final String desc;
 
-    public static Map<String, SlashHandler> cmd = new HashMap<>();
+    public static List<CommandData> cmd = new ArrayList<>();
 
     public SlashHandler(String name, String desc) {
         this.defaultname = name;
         ConfigManager.writeCommand(name , desc);
         this.name = getCommand().getString("command");
-        String desc1 = getCommand().getString("description");
+        this.desc = getCommand().getString("description");
         if(getCommand().getBoolean("enabled")) {
             Handler.getInstance().getJda().addEventListener(this);
-            if(ClustersAPI.getLocalCluster().getId() == 1) {
-                for(Guild guild : Main.getInstance().getJda().getGuilds()) {
-                    guild.updateCommands().addCommands(commandData(this.name, desc1)).queue();
-                }
-            }
-            cmd.put(name, this);
+            cmd.add(commandData(name, desc));
         }
 
     }
@@ -43,9 +40,10 @@ public abstract class SlashHandler extends ListenerAdapter {
     }
 
 
+
     public static void setUpCommands() {
+        new ClusterCommand();
         new PingCommand();
-        new ClusterInfoCommand();
     }
 
     public abstract void execute(SlashCommandInteractionEvent evt);
@@ -54,8 +52,7 @@ public abstract class SlashHandler extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent evt) {
-        if(evt.getName().equalsIgnoreCase(name) && new GuildCApi(Objects.requireNonNull(evt.getGuild()).getId())
-                .isTheCluster()) this.execute(evt);
+        if(evt.getName().equalsIgnoreCase(name)) this.execute(evt);
     }
 
 

@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public abstract class Handler {
 
@@ -28,7 +29,7 @@ public abstract class Handler {
     }
 
     public void init(String token) {
-        jda = JDABuilder.createDefault(token).build();
+        jda = JDABuilder.createDefault(token).enableIntents(GatewayIntent.MESSAGE_CONTENT).build();
     }
 
     public void setStatus(OnlineStatus status,  Activity activity) {

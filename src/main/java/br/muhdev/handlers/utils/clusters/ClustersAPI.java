@@ -1,12 +1,17 @@
 package br.muhdev.handlers.utils.clusters;
 
 import br.muhdev.backend.Backend;
+import br.muhdev.backend.tables.Clusters;
 import br.muhdev.backend.tables.Table;
 import br.muhdev.bot.Main;
 import br.muhdev.handlers.bothandler.Handler;
 import lombok.SneakyThrows;
 
 import javax.sql.rowset.CachedRowSet;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -37,16 +42,60 @@ public class ClustersAPI {
     }
 
 
-    @SneakyThrows
     public long getPing() {
-        return Handler.getInstance().getJda().getGatewayPing();
+        long ping = 0;
+        try {
+            Socket cliente = new Socket("192.168.0.15", (int) getPort());
+            ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
+            saida.flush();
+            saida.writeInt(getId());
+            saida.writeObject("getping");
+
+            ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
+
+            ping = (long)entrada.readObject();
+        } catch (Exception ignored) {}
+        return ping;
     }
 
+    @SneakyThrows
+    public long getPort() {
+        return Backend.getInstance().query(table.select() + " WHERE clusterid=?", "" + getId()).getLong("clusterport");
+    }
 
+    @SneakyThrows
+    public void start() {
+        ServerSocket servidor = new ServerSocket((int) getPort());
+        System.out.println("Servidor ouvindo a porta " + getPort());
+        method(servidor);
+    }
+
+    private void method(ServerSocket server ){
+        try {
+            while(true) {
+                Socket cliente = server.accept();
+
+                ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
+                int id = entrada.readInt();
+                if(id != getId()) return;
+                String coitado = (String) entrada.readObject();
+                if(coitado.equalsIgnoreCase("getping")) {
+                    ObjectOutputStream saida = new ObjectOutputStream(cliente.getOutputStream());
+                    saida.flush();
+                    saida.writeObject(Handler.getInstance().getJda().getGatewayPing());
+                    saida.close();
+                    cliente.close();
+                } else if(coitado.equalsIgnoreCase("exit")) System.exit(0);
+
+            }
+        } catch (Exception e) {
+            method(server);
+        }
+    }
 
     @SneakyThrows
     public void insertCluster() {
-        Backend.getInstance().execute(table.insert(), id, getAddress(), System.currentTimeMillis());
+        Backend.getInstance().execute(new Clusters().insert(), id, "177.181.3.195", System.currentTimeMillis(), Main.getInstance().getConfig().getInt("clusterport") );
     }
 
     public int getId() {
