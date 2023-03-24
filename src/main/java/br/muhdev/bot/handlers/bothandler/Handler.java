@@ -1,7 +1,7 @@
-package br.muhdev.handlers.bothandler;
+package br.muhdev.bot.handlers.bothandler;
 
 
-import br.muhdev.handlers.utils.ConfigManager;
+import br.muhdev.bot.handlers.utils.ConfigManager;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;

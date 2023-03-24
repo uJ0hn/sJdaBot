@@ -1,11 +1,11 @@
 package br.muhdev.bot;
 
-import br.muhdev.backend.Backend;
+import br.muhdev.bot.backend.Backend;
 import br.muhdev.bot.commands.SlashHandler;
 import br.muhdev.bot.listeners.ServerJoinListener;
-import br.muhdev.handlers.bothandler.Handler;
-import br.muhdev.handlers.utils.ConfigManager;
-import br.muhdev.handlers.utils.clusters.ClustersAPI;
+import br.muhdev.bot.handlers.bothandler.Handler;
+import br.muhdev.bot.handlers.utils.ConfigManager;
+import br.muhdev.bot.handlers.utils.clusters.ClustersAPI;
 import lombok.SneakyThrows;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;

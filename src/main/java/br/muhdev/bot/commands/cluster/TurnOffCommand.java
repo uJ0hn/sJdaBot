@@ -1,8 +1,8 @@
 package br.muhdev.bot.commands.cluster;
 
 import br.muhdev.bot.commands.SubCommand;
-import br.muhdev.handlers.utils.clusters.ClustersAPI;
-import br.muhdev.handlers.utils.clusters.GuildCApi;
+import br.muhdev.bot.handlers.utils.clusters.ClustersAPI;
+import br.muhdev.bot.handlers.utils.clusters.GuildCApi;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 

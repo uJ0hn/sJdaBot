@@ -1,12 +1,10 @@
-package br.muhdev.handlers.utils;
+package br.muhdev.bot.handlers.utils;
 
-import br.muhdev.bot.Main;
-import br.muhdev.handlers.bothandler.Handler;
+import br.muhdev.bot.handlers.bothandler.Handler;
 import lombok.SneakyThrows;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;

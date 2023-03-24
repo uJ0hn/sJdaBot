@@ -1,8 +1,9 @@
-package br.muhdev.bot.commands.ticket;
+package br.muhdev.bot.commands.ticket.buttons;
 
-import br.muhdev.backend.Backend;
-import br.muhdev.backend.tables.Table;
-import br.muhdev.handlers.buttomhandler.Buttons;
+import br.muhdev.bot.backend.Backend;
+import br.muhdev.bot.backend.tables.Table;
+import br.muhdev.bot.commands.ticket.TicketSystem;
+import br.muhdev.bot.handlers.buttomhandler.Buttons;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Role;

@@ -1,15 +1,14 @@
 package br.muhdev.bot.listeners;
 
 
-import br.muhdev.backend.Backend;
-import br.muhdev.backend.tables.Table;
+import br.muhdev.bot.backend.Backend;
+import br.muhdev.bot.backend.tables.Table;
 import br.muhdev.bot.commands.SlashHandler;
-import br.muhdev.handlers.utils.clusters.ClustersAPI;
-import br.muhdev.handlers.utils.clusters.GuildCApi;
+import br.muhdev.bot.handlers.utils.clusters.ClustersAPI;
+import br.muhdev.bot.handlers.utils.clusters.GuildCApi;
 import lombok.SneakyThrows;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -18,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONObject;
 
 import javax.sql.rowset.CachedRowSet;
-import java.util.Objects;
 
 public class ServerJoinListener extends ListenerAdapter {
 
@@ -43,7 +41,7 @@ public class ServerJoinListener extends ListenerAdapter {
     @SuppressWarnings("unchecked")
     public void onGuildReady(@NotNull GuildReadyEvent evt) {
         if(ClustersAPI.getLocalCluster().getId() == 1) {
-            evt.getGuild().updateCommands().addCommands(SlashHandler.cmd).queue();
+            evt.getGuild().updateCommands().addCommands(SlashHandler.commandData).queue();
             for(Guild guild : evt.getJDA().getGuilds()) {
                 Table t = Table.tableslist.get("sguild");
                 CachedRowSet query = Backend.getInstance().query(t.select() + " WHERE guildid=?", evt.getGuild().getId());

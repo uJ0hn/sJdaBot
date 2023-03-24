@@ -1,8 +1,6 @@
-package br.muhdev.backend.tables;
+package br.muhdev.bot.backend.tables;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public abstract class Table {

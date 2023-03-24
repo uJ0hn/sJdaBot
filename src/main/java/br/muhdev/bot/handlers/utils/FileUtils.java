@@ -1,4 +1,4 @@
-package br.muhdev.handlers.utils;
+package br.muhdev.bot.handlers.utils;
 
 import java.io.*;
 

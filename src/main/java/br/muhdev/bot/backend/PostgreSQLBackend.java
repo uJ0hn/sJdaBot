@@ -1,6 +1,6 @@
-package br.muhdev.backend;
+package br.muhdev.bot.backend;
 
-import br.muhdev.backend.tables.Table;
+import br.muhdev.bot.backend.tables.Table;
 import br.muhdev.bot.Main;
 import lombok.SneakyThrows;
 import javax.sql.rowset.CachedRowSet;

@@ -1,7 +1,7 @@
-package br.muhdev.handlers.utils.clusters;
+package br.muhdev.bot.handlers.utils.clusters;
 
-import br.muhdev.backend.Backend;
-import br.muhdev.backend.tables.Table;
+import br.muhdev.bot.backend.Backend;
+import br.muhdev.bot.backend.tables.Table;
 import lombok.SneakyThrows;
 
 import javax.sql.rowset.CachedRowSet;

@@ -1,27 +1,20 @@
 package br.muhdev.bot.commands.ticket;
 
-import br.muhdev.backend.Backend;
-import br.muhdev.backend.tables.Table;
-import br.muhdev.handlers.buttomhandler.Buttons;
-import br.muhdev.handlers.utils.economia.EconomiaAPI;
+import br.muhdev.bot.backend.Backend;
+import br.muhdev.bot.backend.tables.Table;
+import br.muhdev.bot.handlers.utils.economia.EconomiaAPI;
 import lombok.SneakyThrows;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.concrete.Category;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
-import net.dv8tion.jda.api.requests.restaction.ChannelAction;
 import org.json.simple.JSONObject;
 
 import javax.sql.rowset.CachedRowSet;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Objects;
 
 public class TicketSystem {

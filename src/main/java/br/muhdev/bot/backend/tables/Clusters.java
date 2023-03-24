@@ -1,4 +1,4 @@
-package br.muhdev.backend.tables;
+package br.muhdev.bot.backend.tables;
 
 public class Clusters extends Table{
 

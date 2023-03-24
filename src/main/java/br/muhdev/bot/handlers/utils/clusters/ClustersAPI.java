@@ -1,10 +1,10 @@
-package br.muhdev.handlers.utils.clusters;
+package br.muhdev.bot.handlers.utils.clusters;
 
-import br.muhdev.backend.Backend;
-import br.muhdev.backend.tables.Clusters;
-import br.muhdev.backend.tables.Table;
+import br.muhdev.bot.backend.Backend;
+import br.muhdev.bot.backend.tables.Clusters;
+import br.muhdev.bot.backend.tables.Table;
 import br.muhdev.bot.Main;
-import br.muhdev.handlers.bothandler.Handler;
+import br.muhdev.bot.handlers.bothandler.Handler;
 import lombok.SneakyThrows;
 
 import javax.sql.rowset.CachedRowSet;
@@ -13,7 +13,6 @@ import java.io.ObjectOutputStream;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class ClustersAPI {
 

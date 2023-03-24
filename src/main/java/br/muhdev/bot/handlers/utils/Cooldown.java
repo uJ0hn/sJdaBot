@@ -1,17 +1,15 @@
-package br.muhdev.handlers.utils;
+package br.muhdev.bot.handlers.utils;
 
-import br.muhdev.backend.Backend;
-import br.muhdev.backend.tables.Table;
-import br.muhdev.handlers.utils.economia.EconomiaAPI;
-import br.muhdev.handlers.utils.economia.MoneyInterface;
+import br.muhdev.bot.backend.Backend;
+import br.muhdev.bot.backend.tables.Table;
+import br.muhdev.bot.handlers.utils.economia.EconomiaAPI;
+import br.muhdev.bot.handlers.utils.economia.MoneyInterface;
 import lombok.SneakyThrows;
 import org.json.simple.JSONObject;
 
 
-import javax.sql.rowset.CachedRowSet;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class Cooldown {
 

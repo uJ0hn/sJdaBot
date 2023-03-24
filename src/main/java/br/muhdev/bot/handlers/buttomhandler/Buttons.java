@@ -1,6 +1,6 @@
-package br.muhdev.handlers.buttomhandler;
+package br.muhdev.bot.handlers.buttomhandler;
 
-import br.muhdev.handlers.bothandler.Handler;
+import br.muhdev.bot.handlers.bothandler.Handler;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 

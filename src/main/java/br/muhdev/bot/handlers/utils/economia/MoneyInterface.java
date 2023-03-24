@@ -1,6 +1,6 @@
-package br.muhdev.handlers.utils.economia;
+package br.muhdev.bot.handlers.utils.economia;
 
-import br.muhdev.backend.Backend;
+import br.muhdev.bot.backend.Backend;
 import lombok.SneakyThrows;
 import org.json.simple.JSONObject;
 
@@ -58,12 +58,12 @@ public class MoneyInterface {
 
     @SuppressWarnings("unchecked")
     public boolean setQuantie(long quantie, EconomiaAPI.type a, String cooldown) {
-        long bank = a == EconomiaAPI.type.BANK ? quantie : getQuantie(a);
-        long money = a == EconomiaAPI.type.MONEY ? quantie : getQuantie(a);
+        long bank = a == EconomiaAPI.type.BANK ? quantie : getQuantie(EconomiaAPI.type.BANK);
+        long money = a == EconomiaAPI.type.MONEY ? quantie : getQuantie(EconomiaAPI.type.MONEY);
         JSONObject object = new JSONObject();
-        object.put("money", "" +money);
-        object.put("bank", "" +bank);
-        object.put("cooldown", "" +cooldown);
+        object.put("money", "" + money);
+        object.put("bank", "" + bank);
+        object.put("cooldown", "" + cooldown);
         Backend.getInstance().execute(EconomiaAPI.table.update("economy=?"), object.toJSONString());
         return true;
     }

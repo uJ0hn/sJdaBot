@@ -1,4 +1,4 @@
-package br.muhdev.backend;
+package br.muhdev.bot.backend;
 
 import javax.sql.rowset.CachedRowSet;
 
