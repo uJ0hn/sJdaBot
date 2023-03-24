@@ -21,6 +21,9 @@ database:
     password: ''
 
 cluster: 1
+clusterip: 'nd01.redekyss.tech'
+clusteruser: 'Murillo'
+clusterpass: '12345678'
 clusterport: 3122
 
 discord:

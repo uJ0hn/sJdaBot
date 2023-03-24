@@ -29,7 +29,7 @@ public abstract class Handler {
     }
 
     public void init(String token) {
-        jda = JDABuilder.createDefault(token).enableIntents(GatewayIntent.MESSAGE_CONTENT).build();
+        jda = JDABuilder.createDefault(token).enableIntents(GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS).build();
     }
 
     public void setStatus(OnlineStatus status,  Activity activity) {

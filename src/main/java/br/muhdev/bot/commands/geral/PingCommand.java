@@ -1,6 +1,7 @@
-package br.muhdev.bot.commands;
+package br.muhdev.bot.commands.geral;
 
 import br.muhdev.bot.Main;
+import br.muhdev.bot.commands.SlashHandler;
 import br.muhdev.handlers.utils.clusters.ClustersAPI;
 import br.muhdev.handlers.utils.clusters.GuildCApi;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;

@@ -12,8 +12,6 @@ public abstract class Table {
 
     public static final Map<String, Table> tableslist = new HashMap<>();
 
-    public static final List<Table> tables = new ArrayList<>();
-
     public Table(String name) {
         this.name = name;
     }
@@ -21,6 +19,7 @@ public abstract class Table {
     public static void init() {
         tableslist.put(new GuildTable().name, new GuildTable());
         tableslist.put(new Clusters().name, new Clusters());
+        tableslist.put(new UserTable().name, new UserTable());
     }
 
     public abstract String pgcreate();

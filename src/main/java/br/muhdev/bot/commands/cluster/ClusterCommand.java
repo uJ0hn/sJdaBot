@@ -19,6 +19,7 @@ public class ClusterCommand extends SlashHandler {
         super("cluster", "Comando para gerencia Clusters");
 
         new InfoCommand();
+        new TurnOffCommand();
     }
 
     @Override
@@ -31,7 +32,7 @@ public class ClusterCommand extends SlashHandler {
             evt.reply("Esse subcomando não existe, subcomandos disponiveis:").queue();
             for(Map.Entry<String, Map.Entry<Class<?>, SubCommand>> b : SubCommand.commands.entrySet()) {
                 if(b.getValue().getKey() == this.getClass()) {
-                    evt.reply(b.getKey()).queue();
+                    evt.reply(b.getKey() + " " + b.getValue().getValue().getUsage()).complete();
                 }
             }
             return;

@@ -1,13 +1,14 @@
 package br.muhdev.bot.commands;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class SubCommand {
+public abstract class SubCommand extends ListenerAdapter {
   
   private final String name;
   private final String usage;
@@ -24,9 +25,7 @@ public abstract class SubCommand {
 
   }
 
-  public static void put(SubCommand cmd) {
 
-  }
 
 
   public abstract void perform(SlashCommandInteractionEvent evt, OptionMapping args);

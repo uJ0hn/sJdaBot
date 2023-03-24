@@ -11,7 +11,8 @@ public class GuildTable extends Table{
         return "CREATE TABLE IF NOT EXISTS sguild(" +
                 "guildid TEXT PRIMARY KEY," +
                 "cluster TEXT," +
-                "ticket TEXT" +
+                "ticket TEXT," +
+                "tickets TEXT" +
                 ");";
     }
 
@@ -22,7 +23,7 @@ public class GuildTable extends Table{
 
     @Override
     public String insert() {
-        return "INSERT INTO sguild VALUES(?, ?, ?)";
+        return "INSERT INTO sguild VALUES(?, ?, ?, ?)";
     }
 
     @Override

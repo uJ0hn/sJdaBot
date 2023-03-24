@@ -1,19 +1,18 @@
 package br.muhdev.bot.commands;
 
-import br.muhdev.bot.Main;
 import br.muhdev.bot.commands.cluster.ClusterCommand;
+import br.muhdev.bot.commands.economia.EconomiaCommand;
+import br.muhdev.bot.commands.geral.PingCommand;
+import br.muhdev.bot.commands.ticket.TicketCommand;
 import br.muhdev.handlers.bothandler.Handler;
 import br.muhdev.handlers.utils.ConfigManager;
-import br.muhdev.handlers.utils.clusters.ClustersAPI;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public abstract class SlashHandler extends ListenerAdapter {
 
@@ -44,6 +43,8 @@ public abstract class SlashHandler extends ListenerAdapter {
     public static void setUpCommands() {
         new ClusterCommand();
         new PingCommand();
+        new EconomiaCommand();
+        new TicketCommand();
     }
 
     public abstract void execute(SlashCommandInteractionEvent evt);
